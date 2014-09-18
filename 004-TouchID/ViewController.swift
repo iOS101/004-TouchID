@@ -14,8 +14,7 @@ class ViewController: UIViewController {
                             
   @IBOutlet var statusLabel: UILabel
   
-  let touchIDContext = LAContext()
-  var touchIDError : NSError?
+
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -26,7 +25,12 @@ class ViewController: UIViewController {
   }
 
   @IBAction func testButton(sender: AnyObject) {
+
+    var touchIDContext = LAContext()
+    var touchIDError : NSError?
+
     statusLabel.hidden = false
+
     if touchIDContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &touchIDError) {
       statusLabel.text = "正在验证 Touch ID..."
       touchIDContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "这是一个 Touch ID 的测试", reply: {
